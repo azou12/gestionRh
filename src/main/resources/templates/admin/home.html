@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion RH - Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/admin/home}">GestionRH</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{/admin/home}">Accueil</a></li>
+            <li><a th:href="@{/admin/ajouterCompte}">Ajouter un compte</a></li>
+            <li><a th:href="@{/admin/listerComptes}">Voir tous les comptes</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/admin/modifierMonCompte}">Modifier mon profil</a></li>
+                    <li><a th:href="@{/logout}">Se déconnecter</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div>
+        <span class="welcome" th:text="${userName}" />
+
+        <div class="jumbotron">
+            <h1 class="display-4">Bienvenue sur GestionRH</h1>
+            <p class="lead">Vous disposez des droits administrateurs. Voici les actions que vous pouvez réaliser :</p>
+            <hr class="my-4">
+            <ul>
+                <li>Ajouter un nouveau compte de type Gestionnaire RH ou Employé</li>
+                <li>Afficher les comptes qui sont de type Gestionnaire RH ou Employé</li>
+                <li>Modifier les comptes qui sont de type Gestionnaire RH ou Employé</li>
+            </ul>
+            <span>Vous ne pourrez pas voir, créer ou modifier les comptes Administrateur</span>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" th:href="@{/admin/listerComptes}" sexe="button">Voir tous les comptes</a>
+            </p>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

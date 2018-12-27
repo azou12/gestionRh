@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion RH - Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/admin/home}">GestionRH</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/admin/home}">Accueil</a></li>
+            <li><a th:href="@{/admin/ajouterCompte}">Ajouter un compte</a></li>
+            <li class="active"><a th:href="@{/admin/listerComptes}">Voir tous les comptes</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/admin/modifierMonCompte}">Modifier mon profil</a></li>
+                    <li><a th:href="@{/logout}">Se déconnecter</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div>
+        <h2>Liste des comptes</h2>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Type</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.email}">-</td>
+                <td th:text="${user.lastName}">-</td>
+                <td th:text="${user.name}">-</td>
+                <td th:if="${not #lists.isEmpty(user.roles)}" th:text="${user.roles[0].role}">-</td>
+                <td th:if="${#lists.isEmpty(user.roles)}">-</td>
+                <td><a th:href="@{/admin/modifierCompte?id=} + ${user.id}">Modifier</a></td>
+                <td><a th:href="@{/admin/delete?id=} + ${user.id}">Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

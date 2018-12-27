@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Gestion RH - Connexion</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrap">
+                    <p class="form-title">
+                        Connexion</p>
+                    <form th:action="@{/login}" method="POST" class="login">
+                        <input type="text" id="email" name="email" placeholder="Email" />
+                        <input type="password" id="password" name="password" placeholder="Mot de passe" />
+                        <div align="center" th:if="${param.error}">
+                            <p style="font-size: 20; color: #FF1C19;">Votre email ou mot de passe est incorrect. Veuillez réessayer</p>
+                        </div>
+                        <input type="submit" value="Se connecter" class="btn btn-success btn-sm" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

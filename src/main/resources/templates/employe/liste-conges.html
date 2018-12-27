@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion RH</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!------------ Including  jQuery Date UI with CSS -------------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
+    <script th:src="@{/js/datepicker.js}"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/employe/home}">GestionRH</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/employe/home}">Accueil</a></li>
+            <li class="active"><a th:href="@{/employe/listerConges}">Mes congés</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/employe/modifierMonCompte}">Modifier mon profil</a></li>
+                    <li><a th:href="@{/employe/details?id=} + ${userLoggedIn.id}">Modifier mon parcours professionnel</a></li>
+                    <li><a th:href="@{/logout}">Se déconnecter</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div>
+        <h2>Mes demandes de congés</h2>
+
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#ajoutConge" role="button" aria-expanded="false" aria-controls="ajoutConge">
+                Ajouter un congé
+            </a>
+        </p>
+        <div class="collapse" id="ajoutConge">
+            <div class="card card-body">
+                <form autocomplete="off" action="#" th:action="@{/employe/ajouterConge}"
+                      th:object="${conge}" method="post" class="form-horizontal"
+                      role="form">
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <select th:field="*{type}" class="form-control">
+                                <option th:each="myType : ${types}"
+                                        th:value="${myType.type}" th:utext="${myType.type}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input type="text" id="datepicker_ajout_conge_deb" th:field="*{dateDebut}" placeholder="Date de début"
+                                   class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input type="text" id="datepicker_ajout_conge_fin" th:field="*{dateFin}" placeholder="Date de fin"
+                                   class="form-control" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary btn-block">Valider</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Type de congés</th>
+                <th>Date début</th>
+                <th>Date de fin</th>
+                <th>Statut</th>
+                <th>Annuler</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="conge : ${conges}">
+                <td th:text="${conge.type}">-</td>
+                <td th:text="${conge.dateDebut}">-</td>
+                <td th:text="${conge.dateFin}">-</td>
+                <td th:text="${conge.statut}">-</td>
+                <td th:if="${#strings.equals(conge.statut, 'EN COURS')}"><a th:href="@{/employe/annulerConge?id=} + ${conge.id}">Annuler</a></td>
+                <td th:if="${not #strings.equals(conge.statut, 'EN COURS')}">-</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

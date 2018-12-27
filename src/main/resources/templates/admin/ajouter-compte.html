@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Créer un compte</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!------------ Including  jQuery Date UI with CSS -------------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
+    <script th:src="@{/js/datepicker.js}"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/admin/home}">GestionRH</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/admin/home}">Accueil</a></li>
+            <li class="active"><a th:href="@{/admin/ajouterCompte}">Ajouter un compte</a></li>
+            <li><a th:href="@{/admin/listerComptes}">Voir tous les comptes</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/admin/modifierMonCompte}">Modifier mon profil</a></li>
+                    <li><a th:href="@{/logout}">Se déconnecter</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form autocomplete="off" action="#" th:action="@{/admin/ajouterCompte}"
+                  th:object="${user}" method="post" class="form-horizontal"
+                  sexe="form">
+                <h2>Création de compte</h2>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <select th:field="*{sexe}" class="form-control">
+                            <option th:each="sex : ${sexes}"
+                                    th:value="${sex.sexe}" th:utext="${sex.sexe}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{name}" placeholder="Prénom"
+                               class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{lastName}"
+                               placeholder="Nom" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" id="datepicker" th:field="*{dateNaissance}"
+                               placeholder="Date de naissance" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{email}" placeholder="Email"
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{adresse}" placeholder="Adresse"
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{codePostal}" placeholder="Code Postal"
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{ville}" placeholder="Ville"
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{tel}" placeholder="Téléphone mobile"
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="password" th:field="*{password}"
+                               placeholder="Password" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="password" th:field="*{passwordConfirm}"
+                               placeholder="Password" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <select th:field="*{role}" class="form-control">
+                            <option value=""> -- </option>
+                            <option th:each="myRole : ${roles}"
+                                    th:value="${myRole.role}" th:utext="${myRole.role}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Créer le compte</button>
+                    </div>
+                </div>
+
+            </form>
+            <ul class="error" th:if="${not #lists.isEmpty(errors)}">
+                <li th:each="error : ${errors}" th:text="${error}">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

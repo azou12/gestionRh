@@ -1,0 +1,19 @@
+.error {
+    color: red
+}
+
+body {
+    padding: 45px;
+}
+
+body .navbar {
+    margin-bottom: 50px;
+}
+
+body .lead {
+    margin-top: 20px;
+}
+
+body .jumbotron h1 {
+    text-align: center !important;
+}
